@@ -1,5 +1,3 @@
-transformers
-torch
-numpy
-fastapi
-uvicorn
+version https://git-lfs.github.com/spec/v1
+oid sha256:1fadebd90deb66254c2d03d15010d04475ccc605e56e81e6348035e19d6fe959
+size 46
