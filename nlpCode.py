@@ -15,7 +15,7 @@ app.add_middleware(
     allow_methods=["*"],  
     allow_headers=["*"],
 )
-current_dir = os.path.dirname(os.path.abspath((__file__))
+current_dir = os.path.dirname(os.path.abspath(__file__))
 model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
 # Load BERT model and tokenizer
 model_directory = "sources/downloadedBertModel"
