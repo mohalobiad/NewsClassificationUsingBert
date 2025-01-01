@@ -46,7 +46,7 @@ class BERT_Arch(nn.Module):
 # Initialize model
 model = BERT_Arch(bert)
 
-path = os.path.join(current_dir, "sources","Bert.pt")
+path = "./sources/Bert.pt"
 model.load_state_dict(torch.load(path))
 
 # Load stop words
