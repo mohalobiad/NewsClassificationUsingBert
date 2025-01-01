@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
-model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
+#model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
 
 
 # مسارات الملفات الفردية
