@@ -16,6 +16,10 @@ app.add_middleware(
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
 model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
+for dirpath, dirnames, filenames in os.walk(model_directory):
+    for filename in filenames:
+        file_path = os.path.join(dirpath, filename)
+        os.chmod(file_path, 0o644)
 # Load BERT model and tokenizer
 #model_directory = "./sources/downloadedBertModel"
 tokenizer = AutoTokenizer.from_pretrained(model_directory)
