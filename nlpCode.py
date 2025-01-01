@@ -15,10 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
-#file_path = r"./sources/stop.tr.turkish-lucene.txt"
-with open(file_path, "r", encoding="utf-8") as file:
-    stop_words_list = file.read().splitlines()
 
 tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-turkish-uncased")
 bert = AutoModel.from_pretrained("dbmdz/bert-base-turkish-uncased")
@@ -49,8 +45,8 @@ class BERT_Arch(nn.Module):
 
 # Initialize model
 model = BERT_Arch(bert)
-
-path = "./sources/Bert.pt"
+path = os.path.join(current_dir, "sources","Bert.pt")
+#path = "./sources/Bert.pt"
 model.load_state_dict(torch.load(path))
 
 # Load stop words
