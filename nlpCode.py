@@ -16,13 +16,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
-Folder1_path = os.path.join(current_dir, "sources")
-model_directory = os.path.join(Folder1_path, "downloadedBertModel")
+#Folder1_path = os.path.join(current_dir, "sources")
+#model_directory = os.path.join(Folder1_path, "downloadedBertModel")
 # Load BERT model and tokenizer
 #model_directory = "sources/downloadedBertModel"
-tokenizer = AutoTokenizer.from_pretrained(model_directory)
-bert = AutoModel.from_pretrained(model_directory)
-
+#tokenizer = AutoTokenizer.from_pretrained(model_directory)
+#bert = AutoModel.from_pretrained(model_directory)
+tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-turkish-uncased")
+bert = AutoModel.from_pretrained("dbmdz/bert-base-turkish-uncased")
 # Freeze BERT parameters
 for param in bert.parameters():
     param.requires_grad = False
