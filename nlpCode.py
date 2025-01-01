@@ -47,7 +47,7 @@ class BERT_Arch(nn.Module):
 model = BERT_Arch(bert)
 path = os.path.join(current_dir, "sources","Bert.pt")
 #path = "./sources/Bert.pt"
-model.load_state_dict(torch.load(path))
+model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
 # Load stop words
 file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
 #file_path = r"./sources/stop.tr.turkish-lucene.txt"
