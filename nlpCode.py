@@ -15,15 +15,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
-model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
-for dirpath, dirnames, filenames in os.walk(model_directory):
-    for filename in filenames:
-        file_path = os.path.join(dirpath, filename)
-        os.chmod(file_path, 0o644)
-# Load BERT model and tokenizer
-#model_directory = "./sources/downloadedBertModel"
-tokenizer = AutoTokenizer.from_pretrained(model_directory)
-bert = AutoModel.from_pretrained(model_directory)
+
+tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-turkish-uncased")
+bert = AutoModel.from_pretrained("dbmdz/bert-base-turkish-uncased")
 
 # Freeze BERT parameters
 for param in bert.parameters():
@@ -52,9 +46,7 @@ class BERT_Arch(nn.Module):
 # Initialize model
 model = BERT_Arch(bert)
 
-# Load pre-trained weights
 path = os.path.join(current_dir, "sources","Bert.pt")
-#path = r"./sources/Bert.pt"
 model.load_state_dict(torch.load(path))
 
 # Load stop words
