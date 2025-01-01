@@ -18,10 +18,27 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
 
 
+# مسارات الملفات الفردية
+config_path = os.path.join(current_dir, "sources","downloadedBertModel","config.json")
+model_path = os.path.join(current_dir, "sources","downloadedBertModel","model.safetensors")
+special_tokens_map_path = os.path.join(current_dir, "sources","downloadedBertModel","special_tokens_map.json")
+tokenizer_json_path = os.path.join(current_dir, "sources","downloadedBertModel","tokenizer.json")
+tokenizer_config_path = os.path.join(current_dir, "sources","downloadedBertModel","tokenizer_config.json")
+vocab_path = os.path.join(current_dir, "sources","downloadedBertModel","vocab.txt")
+
+# تحميل التوكنيزر مع الإشارة إلى المسارات الفردية
 # Load BERT model and tokenizer
 # model_directory = "/sources/downloadedBertModel"
-tokenizer = AutoTokenizer.from_pretrained(model_directory)
-bert = AutoModel.from_pretrained(model_directory)
+tokenizer = AutoTokenizer.from_pretrained(vocab_path,  # توفير مسار vocab.txt
+    config=config_path,
+    tokenizer_file=tokenizer_json_path,
+    tokenizer_config=tokenizer_config_path,
+    special_tokens_map_file=special_tokens_map_path)
+bert = AutoModel.from_pretrained(vocab_path,  # توفير مسار vocab.txt
+    config=config_path,
+    tokenizer_file=tokenizer_json_path,
+    tokenizer_config=tokenizer_config_path,
+    special_tokens_map_file=special_tokens_map_path)
 
 # Freeze BERT parameters
 for param in bert.parameters():
