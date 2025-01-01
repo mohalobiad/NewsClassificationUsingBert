@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Load BERT model and tokenizer
-model_directory = "/app/NewsClassificationUsingBert/sources/downloadedBertModel"
+model_directory = "sources/downloadedBertModel"
 tokenizer = AutoTokenizer.from_pretrained(model_directory)
 bert = AutoModel.from_pretrained(model_directory)
 
@@ -49,11 +49,11 @@ class BERT_Arch(nn.Module):
 model = BERT_Arch(bert)
 
 # Load pre-trained weights
-path = "/app/NewsClassificationUsingBert/sources/bert.pt"
+path = "sources/Bert.pt"
 model.load_state_dict(torch.load(path))
 
 # Load stop words
-file_path = "/app/NewsClassificationUsingBert/sources/stop.tr.turkish-lucene.txt"
+file_path = "sources/stop.tr.turkish-lucene.txt"
 with open(file_path, "r", encoding="utf-8") as file:
     stop_words_list = file.read().splitlines()
 
