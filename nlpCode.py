@@ -19,7 +19,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 Folder1_path = os.path.join(current_dir, "sources")
 model_directory = os.path.join(Folder1_path, "downloadedBertModel")
 # Load BERT model and tokenizer
-model_directory = "sources/downloadedBertModel"
+#model_directory = "sources/downloadedBertModel"
 tokenizer = AutoTokenizer.from_pretrained(model_directory)
 bert = AutoModel.from_pretrained(model_directory)
 
