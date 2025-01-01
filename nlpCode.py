@@ -6,7 +6,6 @@ import numpy as np
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -16,14 +15,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
-#Folder1_path = os.path.join(current_dir, "sources")
-#model_directory = os.path.join(Folder1_path, "downloadedBertModel")
+model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
+
+
 # Load BERT model and tokenizer
-#model_directory = "sources/downloadedBertModel"
-#tokenizer = AutoTokenizer.from_pretrained(model_directory)
-#bert = AutoModel.from_pretrained(model_directory)
-tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-turkish-uncased")
-bert = AutoModel.from_pretrained("dbmdz/bert-base-turkish-uncased")
+# model_directory = "/sources/downloadedBertModel"
+tokenizer = AutoTokenizer.from_pretrained(model_directory)
+bert = AutoModel.from_pretrained(model_directory)
+
 # Freeze BERT parameters
 for param in bert.parameters():
     param.requires_grad = False
@@ -53,10 +52,12 @@ model = BERT_Arch(bert)
 
 # Load pre-trained weights
 path = os.path.join(current_dir, "sources","Bert.pt")
+#path = r"C:\Users\mohammad alobiad\Documents\nlpProject\sources\Bert.pt"
 model.load_state_dict(torch.load(path))
 
 # Load stop words
 file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
+#file_path = r"C:\Users\mohammad alobiad\Documents\nlpProject\sources\stop.tr.turkish-lucene.txt"
 with open(file_path, "r", encoding="utf-8") as file:
     stop_words_list = file.read().splitlines()
 
