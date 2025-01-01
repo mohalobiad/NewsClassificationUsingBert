@@ -16,9 +16,6 @@ app.add_middleware(
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
 model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
-
-if not os.path.exists(model_directory):
-    raise FileNotFoundError(f"The directory {model_directory} does not exist.")
 # Load BERT model and tokenizer
 #model_directory = "./sources/downloadedBertModel"
 tokenizer = AutoTokenizer.from_pretrained(model_directory)
