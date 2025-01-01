@@ -14,31 +14,14 @@ app.add_middleware(
     allow_methods=["*"],  
     allow_headers=["*"],
 )
-current_dir = os.path.dirname(os.path.abspath(__file__))
+#current_dir = os.path.dirname(os.path.abspath(__file__))
 #model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
 
 
-# مسارات الملفات الفردية
-config_path = os.path.join(current_dir, "sources","downloadedBertModel","config.json")
-model_path = os.path.join(current_dir, "sources","downloadedBertModel","model.safetensors")
-special_tokens_map_path = os.path.join(current_dir, "sources","downloadedBertModel","special_tokens_map.json")
-tokenizer_json_path = os.path.join(current_dir, "sources","downloadedBertModel","tokenizer.json")
-tokenizer_config_path = os.path.join(current_dir, "sources","downloadedBertModel","tokenizer_config.json")
-vocab_path = os.path.join(current_dir, "sources","downloadedBertModel","vocab.txt")
-
-# تحميل التوكنيزر مع الإشارة إلى المسارات الفردية
 # Load BERT model and tokenizer
-# model_directory = "/sources/downloadedBertModel"
-tokenizer = AutoTokenizer.from_pretrained(vocab_path,  # توفير مسار vocab.txt
-    config=config_path,
-    tokenizer_file=tokenizer_json_path,
-    tokenizer_config=tokenizer_config_path,
-    special_tokens_map_file=special_tokens_map_path)
-bert = AutoModel.from_pretrained(vocab_path,  # توفير مسار vocab.txt
-    config=config_path,
-    tokenizer_file=tokenizer_json_path,
-    tokenizer_config=tokenizer_config_path,
-    special_tokens_map_file=special_tokens_map_path)
+model_directory = "./sources/downloadedBertModel"
+tokenizer = AutoTokenizer.from_pretrained(model_directory)
+bert = AutoModel.from_pretrained(model_directory)
 
 # Freeze BERT parameters
 for param in bert.parameters():
@@ -68,13 +51,13 @@ class BERT_Arch(nn.Module):
 model = BERT_Arch(bert)
 
 # Load pre-trained weights
-path = os.path.join(current_dir, "sources","Bert.pt")
-#path = r"C:\Users\mohammad alobiad\Documents\nlpProject\sources\Bert.pt"
+#path = os.path.join(current_dir, "sources","Bert.pt")
+path = r"./sources/Bert.pt"
 model.load_state_dict(torch.load(path))
 
 # Load stop words
-file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
-#file_path = r"C:\Users\mohammad alobiad\Documents\nlpProject\sources\stop.tr.turkish-lucene.txt"
+#file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
+file_path = r"./sources/stop.tr.turkish-lucene.txt"
 with open(file_path, "r", encoding="utf-8") as file:
     stop_words_list = file.read().splitlines()
 
