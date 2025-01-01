@@ -15,7 +15,8 @@ app.add_middleware(
     allow_methods=["*"],  
     allow_headers=["*"],
 )
-
+current_dir = os.path.dirname(os.path.abspath((__file__))
+model_directory = os.path.join(current_dir, "sources","downloadedBertModel")
 # Load BERT model and tokenizer
 model_directory = "sources/downloadedBertModel"
 tokenizer = AutoTokenizer.from_pretrained(model_directory)
@@ -49,11 +50,11 @@ class BERT_Arch(nn.Module):
 model = BERT_Arch(bert)
 
 # Load pre-trained weights
-path = "sources/Bert.pt"
+path = os.path.join(current_dir, "sources","Bert.pt")
 model.load_state_dict(torch.load(path))
 
 # Load stop words
-file_path = "sources/stop.tr.turkish-lucene.txt"
+file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
 with open(file_path, "r", encoding="utf-8") as file:
     stop_words_list = file.read().splitlines()
 
