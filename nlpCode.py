@@ -6,6 +6,7 @@ import numpy as np
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import gdown
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -15,20 +16,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
-def check_file_existence(file_path):
-    """
-    Checks if a file exists at the given path. 
-    Prints a red message if the file is not found.
-    """
-    if os.path.exists(file_path):
-        print("✅ The file exists!")
-    else:
-        print("\033[91m❌ The file does not exist at the specified path!\033[0m")
-        print(f"Path checked: {file_path}")
-
-# مثال على الاستخدام
-path = os.path.join(os.getcwd(), "sources", "Bert.pt")
-check_file_existence(path)
 
 tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-turkish-uncased")
 bert = AutoModel.from_pretrained("dbmdz/bert-base-turkish-uncased")
@@ -59,9 +46,12 @@ class BERT_Arch(nn.Module):
 
 # Initialize model
 model = BERT_Arch(bert)
-path = os.path.join(current_dir, "sources","Bert.pt")
+#path = os.path.join(current_dir, "sources","Bert.pt")
 #path = "./sources/Bert.pt"
-model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
+url = 'https://drive.usercontent.google.com/download?id=1bK5u2Jzz9uBD9MR8FyRmjfNjTsklSuf6&export=download&authuser=0&confirm=t&uuid=3824132c-e2e7-40d4-a934-312a07315346&at=APvzH3osgrvcOG-vuzxg7LMrdgo1:1735784422531'
+output = 'Bert.pt'
+gdown.download(url, output, quiet=False)
+model.load_state_dict(torch.load(output))
 # Load stop words
 file_path = os.path.join(current_dir, "sources","stop.tr.turkish-lucene.txt")
 #file_path = r"./sources/stop.tr.turkish-lucene.txt"
