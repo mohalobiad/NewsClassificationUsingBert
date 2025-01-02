@@ -48,7 +48,7 @@ class BERT_Arch(nn.Module):
 model = BERT_Arch(bert)
 #path = os.path.join(current_dir, "sources","Bert.pt")
 #path = "./sources/Bert.pt"
-url = 'https://drive.usercontent.google.com/download?id=1bK5u2Jzz9uBD9MR8FyRmjfNjTsklSuf6&export=download&authuser=0&confirm=t&uuid=3824132c-e2e7-40d4-a934-312a07315346&at=APvzH3osgrvcOG-vuzxg7LMrdgo1:1735784422531'
+url = 'https://drive.google.com/uc?id=1bK5u2Jzz9uBD9MR8FyRmjfNjTsklSuf6'
 output = 'Bert.pt'
 gdown.download(url, output, quiet=False)
 model.load_state_dict(torch.load(output))
