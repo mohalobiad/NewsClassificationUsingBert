@@ -15,6 +15,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 current_dir = os.path.dirname(os.path.abspath(__file__))
+def check_file_existence(file_path):
+    """
+    Checks if a file exists at the given path. 
+    Prints a red message if the file is not found.
+    """
+    if os.path.exists(file_path):
+        print("✅ The file exists!")
+    else:
+        print("\033[91m❌ The file does not exist at the specified path!\033[0m")
+        print(f"Path checked: {file_path}")
+
+# مثال على الاستخدام
+path = os.path.join(os.getcwd(), "sources", "Bert.pt")
+check_file_existence(path)
 
 tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-turkish-uncased")
 bert = AutoModel.from_pretrained("dbmdz/bert-base-turkish-uncased")
