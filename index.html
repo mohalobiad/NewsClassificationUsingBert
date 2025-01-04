@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>news classification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        textarea {
+            padding: 12px;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            background-color: #ffffff;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: #28a745;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            text-align: center;
+        }
+        .loading {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .suggestions {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        .suggestions button {
+            margin: 5px;
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .suggestions button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome</h1>
+        <p>Please enter the title of the news you want to check its classification</p>
+    
+        <textarea id="userInput" rows="4" placeholder="Type the text here..." dir="ltr"></textarea>
+    
+        <button id="fetchDataBtn">Send data</button>
+
+        <!-- نصوص مقترحة -->
+        <div class="suggestions" dir="ltr">
+            <p>Or try one of these sample texts:</p>
+            <button onclick="setSampleText('Sinop\'ta soğuk hava depolarından çıkarılan toriklerden lakerda yapımına başlandı')">Sample 1</button>
+            <button onclick="setSampleText('KDV istismarını önleyecek düzenleme haksız rekabetin önüne geçecek')">Sample 2</button>
+            <button onclick="setSampleText('Ünlü teknik direktör, şampiyon yaptığı takıma başkan oldu')">Sample 3</button>
+            <button onclick="setSampleText('Türk doktorun “Fındık tekniği” yöntemi dünya tıp literatürüne girdi')">Sample 4</button>
+        </div>
+    
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        // وظيفة لتعيين النص المقدم من المستخدم
+        function setSampleText(text) {
+            document.getElementById('userInput').value = text;
+        }
+
+        document.getElementById('fetchDataBtn').addEventListener('click', function() {
+            const userInput = document.getElementById('userInput').value.trim();
+            
+            if (!userInput) {
+                document.getElementById('result').innerHTML = '<p class="error">Please enter text before submitting.</p>';
+                return;
+            }
+    
+            document.getElementById('result').setAttribute('dir', 'ltr');
+    
+            const url = `http://127.0.0.1:8000/test?testText=${encodeURIComponent(userInput)}`;
+    
+            document.getElementById('result').innerHTML = '<p class="loading">Loading data...</p>';
+    
+            fetch(url)
+                .then(response => response.text())  
+                .then(data => {
+                    if (data) {
+                        document.getElementById('result').innerHTML = `
+                            <p class="success"><strong>Result:</strong> ${data}</p>
+                        `;
+                    } else {
+                        document.getElementById('result').innerHTML = '<p class="error">No data found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('API connection error:', error);
+                    document.getElementById('result').innerHTML = '<p class="error">An error occurred while calling the API.</p>';
+                });
+        });
+    </script>
+    
+
+</body>
+</html>
