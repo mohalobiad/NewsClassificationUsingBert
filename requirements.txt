@@ -1,0 +1,10 @@
+transformers
+gdown
+torch
+torchvision
+torchaudio
+numpy
+fastapi
+uvicorn
+gitpython 
+requests
