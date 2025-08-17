@@ -108,20 +108,19 @@
     
         <button id="fetchDataBtn">Send data</button>
 
-        <!-- نصوص مقترحة -->
         <div class="suggestions" dir="ltr">
             <p>Or try one of these sample texts:</p>
-            <button onclick="setSampleText('Sinop\'ta soğuk hava depolarından çıkarılan toriklerden lakerda yapımına başlandı')">Sample 1</button>
-            <button onclick="setSampleText('KDV istismarını önleyecek düzenleme haksız rekabetin önüne geçecek')">Sample 2</button>
-            <button onclick="setSampleText('Ünlü teknik direktör, şampiyon yaptığı takıma başkan oldu')">Sample 3</button>
-            <button onclick="setSampleText('Türk doktorun “Fındık tekniği” yöntemi dünya tıp literatürüne girdi')">Sample 4</button>
+            <button onclick="setSampleText('US politics in brief: Bowser keeps calm, Democrats rage')">Sample 1</button>
+            <button onclick="setSampleText('Helping women navigate perimenopause')">Sample 2</button>
+            <button onclick="setSampleText('Mamma Mia! returns to Broadway after a decade away, bringing the dance party back to New York')">Sample 3</button>
+            <button onclick="setSampleText('Air India Suspends Washington Service From Sep 2025')">Sample 4</button>
+            <button onclick="setSampleText('Sydney Sweeney Looks So Different With New Curly Hair and Bangs')">Sample 5</button>
         </div>
     
         <div id="result"></div>
     </div>
     
     <script>
-        // وظيفة لتعيين النص المقدم من المستخدم
         function setSampleText(text) {
             document.getElementById('userInput').value = text;
         }
@@ -136,7 +135,7 @@
     
             document.getElementById('result').setAttribute('dir', 'ltr');
     
-            const url = `http://127.0.0.1:8000/test?testText=${encodeURIComponent(userInput)}`;
+            const url = `/test?testText=${encodeURIComponent(userInput)}`;
     
             document.getElementById('result').innerHTML = '<p class="loading">Loading data...</p>';
     
