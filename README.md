@@ -25,19 +25,27 @@ A production-ready REST API that classifies news **headlines** into 5 categories
 > Note: To load weights, you must reconstruct the exact model class before `load_state_dict`.
 
 ## Project Structure
+
 ├── Dockerfile
 ├── requirements.txt
 ├── index.html
-├── News.py # FastAPI app
-├── news_classification_distilbert.py #Training / eval code
+├── News.py            # FastAPI app
+├── news_classification_distilbert.py  # Training / eval code
 └── sources/
-       ├── outputBert.pt # Trained weights 
-       └── downloadedBertModel/ 
+    ├── outputBert.pt  # Trained weights
+    ├── english_stopwords.txt
+    └── downloadedBertModel/
+            ├── vocab.txt
+            ├── tokenizer_config.json
+            ├── special_tokens_map.json
+            ├── model.safetensors
+            └── config.json
 ## bash
+
+```bash
 docker pull swr.tr-west-1.myhuaweicloud.com/cloud-workspace/news-app:latest
 docker run -p 8000:8000 swr.tr-west-1.myhuaweicloud.com/cloud-workspace/news-app:latest
-
-
+```
 ** Once the container is running, open:
 http://localhost:8000
 You’ll see a simple web page with:
